@@ -3,13 +3,13 @@ db.createCollection('usuario', {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["user", "email", "telefono", "primerNombre", "segundoNombre", "password", "rol"],
+            required: ["user", "email", "telefono", "primerNombre", "primerApellido", "password", "rol", "fechaNac"],
             properties: {
                 user: { bsonType: "string", description: "'user' is required" },
-                email: { bsonType: "string", description: "'email' is required", pattern: "^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$" },
+                email: { bsonType: "string", description: "'email' is required", pattern: "^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" },
                 telefono: { bsonType: "int", description: "'telefono' is required" },
                 primerNombre: { bsonType: "string", description: "'primerNombre' is required", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]*$" },
-                segundoNombre: { bsonType: "string", description: "'segundoNombre' is required", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]*$" },
+                primerApellido: { bsonType: "string", description: "'segundoNombre' is required", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]*$" },
                 password: { bsonType: "string", description: "'password' is required" },
                 rol: { enum: ['cliente', 'empleado', 'gerente'], description: "'rol is required'" },
                 fechaNac: { bsonType: "date", description: "'fechaNac' is incorrect" }
