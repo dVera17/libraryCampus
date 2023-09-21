@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.containerForm {
+    background-color: aqua;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerForm  Form {
+    padding: 2rem;
+    border-radius: 17px;
+    background-color: #fff;
+    border: 1px solid beige;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.btn-info-register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
