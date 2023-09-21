@@ -13,7 +13,7 @@
     align-items: center;
 }
 
-.containerForm  Form {
+.containerForm Form {
     padding: 2rem;
     border-radius: 17px;
     background-color: #fff;
@@ -21,8 +21,28 @@
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
-.btn-info-register{
+.btn-info-register {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.formLogin {
+    width: 50%;
+}
+
+.formLogin .btn-info-login {
+    margin-top: 1.5rem;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-form {
+    font-weight: 600;
+    font-size: 2.5rem;
+    width: 100%;
+    text-align: center;
 }
