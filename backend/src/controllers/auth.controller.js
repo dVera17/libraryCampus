@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     try {
         res.cookie('token', req.data.message);
-        res.send('User successfully logged in')
+        res.json({ message: "User successfully logged in" })
     } catch (error) {
         res.send(error)
     }

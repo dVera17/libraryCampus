@@ -28,7 +28,7 @@ const existUserLogin = asyncHandler(async (req, res, next) => {
         if (!errors.isEmpty()) return res.status(400).json(errors);
 
         const existingUser = await user.findOne({ user: req.body.user });
-        const existingEmail = await user.findOne({ email: req.body.email });
+        const existingEmail = await user.findOne({ email: req.body.user });
 
         (existingUser !== null || existingEmail !== null) ? next() : res.json({ message: "User not found" });
 
