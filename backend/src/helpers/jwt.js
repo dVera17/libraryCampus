@@ -31,13 +31,13 @@ export const createToken = asyncHandler(async (req, res, next) => {
 export const tokenVerification = asyncHandler(async (req, res, next) => {
     try {
         const jwtData = await jwtVerify(
-            token,
+            req.cookies.token,
             new TextEncoder().encode(process.env.JWT_PRIVATE_KEY)
         );
         let result = await usuario.findOne({ _id: new ObjectId(jwtData.payload.id) });
-        if (!result) return;
-        let { _id, permisos, ...usuario } = result;
-        return usuario;
+        if (!result) res.json({ message: 'Error' });
+        req.user = result;
+        next();
     } catch (error) {
         res.send(error)
     }

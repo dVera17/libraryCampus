@@ -35,7 +35,13 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 })
 
+const logoutUser = (req, res) => {
+    res.clearCookie('token')
+    res.json({ message: 'User successfully logged out' })
+}
+
 export const authController = {
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
