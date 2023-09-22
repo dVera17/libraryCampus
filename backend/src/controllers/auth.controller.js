@@ -20,7 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
             fechaNac: new Date(req.body.fechaNac)
         });
 
-        insertUser.insertedId !== null ? res.json({ message: "successfully registered user" }) : res.json({ message: "Sorry, Something is wrong" })
+        insertUser.insertedId !== null ? res.json({ action: true, message: "successfully registered user" }) : res.json({ message: "Sorry, Something is wrong" })
     } catch (error) {
         res.send(error)
     }
@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     try {
         res.cookie('token', req.data.message);
-        res.json({ message: "User successfully logged in" })
+        res.json({ action: true, message: "User successfully logged in" })
     } catch (error) {
         res.send(error)
     }
@@ -37,7 +37,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const logoutUser = (req, res) => {
     res.clearCookie('token')
-    res.json({ message: 'User successfully logged out' })
+    res.json({ action: true, message: 'User successfully logged out' })
 }
 
 export const authController = {
