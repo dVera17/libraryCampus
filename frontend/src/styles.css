@@ -5,7 +5,7 @@
 }
 
 .containerForm {
-    background-color: aqua;
+    background-color: #333;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -28,7 +28,7 @@
 }
 
 .formLogin {
-    width: 50%;
+    width: 30rem;
 }
 
 .formLogin .btn-info-login {
@@ -45,4 +45,9 @@
     font-size: 2.5rem;
     width: 100%;
     text-align: center;
+}
+
+.main-nav-pages {
+    height: 5rem;
+    background-color: #333;
 }
