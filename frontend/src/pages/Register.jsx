@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import '../styles.css'
+import toast, { Toaster } from 'react-hot-toast';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [user, setUser] = useState();
@@ -13,6 +15,7 @@ export default function Register() {
     const [primerApellido, setPrimerApellido] = useState();
     const [password, setPassword] = useState();
     const [fechaNac, setFechaNac] = useState();
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +29,12 @@ export default function Register() {
             body: JSON.stringify(dataForm)
         }
         let result = await (await fetch('http://localhost:5010/auth/register', options)).json()
-        console.log(result);
+        if (result.action) {
+            toast.success(result.message)
+            setTimeout(() => {
+                navigate('/login')
+            }, 2000)
+        } else toast.error(result.message)
     }
 
     return (
@@ -68,9 +76,10 @@ export default function Register() {
                 </Row>
                 <Row className='btn-info-register'>
                     <Col sm={4}><Button variant="primary" type='submit' onClick={handleSubmit}>Registrarse</Button></Col>
-                    <Col sm={8}>Ya tienes una cuenta? Inicia sesion aquí</Col>
+                    <Col sm={8}>Ya tienes una cuenta? <Link to={'/login'}>Inicia sesion aquí</Link></Col>
                 </Row>
             </Form>
+            <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 2000 }} />
         </div>
     )
 }

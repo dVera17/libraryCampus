@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
     const [user, setUser] = useState();
@@ -30,7 +31,7 @@ export default function Login() {
                 </Form.Group>
                 <Stack gap={2} className="col-md-5 mx-auto btn-info-login">
                     <Col><Button variant="primary" type='submit' onClick={handleSubmit} >Registrarse</Button></Col>
-                    <Col>No tienes una cuenta? Registrate aquí</Col>
+                    <Col>No tienes una cuenta? <Link to={'/register'}>Registrate aquí</Link></Col>
                 </Stack>
             </Form>
         </div>
