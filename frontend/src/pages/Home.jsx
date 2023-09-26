@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavbarPages from '../components/NavbarPages'
 import { useNavigate } from 'react-router-dom';
+import TemporaryDrawer from '../components/TemporaryDrawer';
 
 export default function Home() {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ export default function Home() {
             {isLoggedIn && (
                 <>
                     <NavbarPages />
+                    <TemporaryDrawer />
                 </>
             )}
         </>

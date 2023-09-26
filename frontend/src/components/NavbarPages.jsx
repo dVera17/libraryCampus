@@ -28,22 +28,22 @@ export default function NavbarPages() {
 
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+            <Navbar collapseOnSelect expand="lg" className="main-navbar">
                 <Container>
-                    <Navbar.Brand href="/home">Library Campus</Navbar.Brand>
+                    <Navbar.Brand href="/home" className='titleNavbar'>Library Campus</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
 
                         </Nav>
                         <Nav>
-                            <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
+                            <NavDropdown title="Dropdown" id="collapsible-nav-dropdown" className='titleNavbar'>
                                 <NavDropdown.Item onClick={handleLogOut}>Log out</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
-            </Navbar>
+            </Navbar >
             <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 1000 }} />
         </>
     )
