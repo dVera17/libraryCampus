@@ -17,8 +17,8 @@ export default function NavbarPages() {
             }
         }
         let result = await (await fetch('http://localhost:5010/auth/logout', options)).json();
-        console.log(result);
         if (result.action) {
+            document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             toast.success(result.message)
             setTimeout(() => {
                 navigate('/login')
@@ -30,7 +30,7 @@ export default function NavbarPages() {
         <>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="/login">Library Campus</Navbar.Brand>
+                    <Navbar.Brand href="/home">Library Campus</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">

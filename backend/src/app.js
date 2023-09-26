@@ -7,7 +7,7 @@ import { tokenVerification } from './helpers/jwt.js';
 config();
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: '*',
     optionsSuccessStatus: 200
 }
 
@@ -18,5 +18,6 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 app.use('/auth', routerAuth)
+app.use('/home', tokenVerification, (req, res) => res.json({ action: true, message: "welcome" }))
 
 export default app;

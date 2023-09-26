@@ -28,15 +28,15 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
     try {
-        res.cookie('token', req.data.message);
-        res.json({ action: true, message: "User successfully logged in" })
+        // res.cookie('token', , { httpOnly: true, secure: true, sameSite: 'strict', path: '/', domain: '*.localhost' });
+        res.json({ action: true, message: "User successfully logged in", token: req.data.message })
     } catch (error) {
         res.send(error)
     }
 })
 
 const logoutUser = (req, res) => {
-    res.clearCookie('token')
+    res.cookie('token', '', { expires: new Date(0), httpOnly: true, secure: true, sameSite: 'strict' });
     res.json({ action: true, message: 'User successfully logged out' })
 }
 

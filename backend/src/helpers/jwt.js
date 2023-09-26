@@ -30,12 +30,19 @@ export const createToken = asyncHandler(async (req, res, next) => {
 
 export const tokenVerification = asyncHandler(async (req, res, next) => {
     try {
+        const token = req.headers.authorization;
+        if (!token) return res.json({ action: false, message: 'Not logged in' });
         const jwtData = await jwtVerify(
-            req.cookies.token,
+            token.replace('Bearer ', ''),
             new TextEncoder().encode(process.env.JWT_PRIVATE_KEY)
         );
+
+        if (!jwtData) {
+            console.log('Token inválido');
+            return res.json({ action: false, message: 'Invalid token' });
+        }
         let result = await usuario.findOne({ _id: new ObjectId(jwtData.payload.id) });
-        if (!result) res.json({ message: 'Error' });
+        if (!result) res.json({ action: false, message: 'Error' });
         req.user = result;
         next();
     } catch (error) {
