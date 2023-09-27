@@ -4,6 +4,10 @@
     padding: 0;
 }
 
+body {
+    background-color: lightgray;
+}
+
 .containerForm {
     background-color: #333;
     height: 100vh;
@@ -60,15 +64,17 @@
 .main-navbar {
     background-color: #002A40;
     border-bottom: 2px solid darkgoldenrod;
+    position: relative;
 }
 
 .main-left-navigation {
     height: 91.9vh;
-    width: 240px;
+    width: 18%;
     background-color: #002a40;
     display: flex;
     justify-content: center;
     border-right: 2px solid darkgoldenrod;
+    position: fixed;
 }
 
 .titleNavbar {
@@ -104,4 +110,11 @@
 .itemSideBar:hover {
     transition: 200ms all ease-in;
     background-color: #00547F;
+}
+
+.container-table {
+    width: 80%;
+    margin-top: 1rem;
+    margin-left: 19%;
+    position: absolute;
 }

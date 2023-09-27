@@ -15,7 +15,7 @@ export default function TemporaryDrawer() {
                             <span>Inicio</span>
                         </button>
                     </Link>
-                    <Link className='itemSideBar-link' to='/home'>
+                    <Link className='itemSideBar-link' to='/book'>
                         <button className='itemSideBar'>
                             <MenuBookSharpIcon fontSize='large' sx={{ color: 'white' }}></MenuBookSharpIcon>
                             <span>Libros</span>
