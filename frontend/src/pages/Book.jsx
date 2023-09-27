@@ -1,45 +1,74 @@
 import React, { useEffect, useState } from 'react';
 import NavbarPages from '../components/NavbarPages'
-import { useNavigate } from 'react-router-dom';
 import TemporaryDrawer from '../components/TemporaryDrawer';
+import DataTable from 'react-data-table-component';
+import ButtonBook from '../components/ButtonBook';
+import FormAddBook from '../components/FormAddBook';
 
 export default function Book() {
-    const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const hasTokenCookie = document.cookie.includes('token=');
+    const [data, setData] = useState([]);
+    const [pending, setPending] = React.useState(true);
+    const [rows, setRows] = React.useState([]);
 
-    useEffect(() => {
-        if (hasTokenCookie) {
-            const token = document.cookie.match(/token=([^;]+)/)[1];
-            fetch('http://localhost:5010/home', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.action) {
-                        setIsLoggedIn(true);
-                    } else {
-                        navigate('/login');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error al verificar la sesión', error);
-                });
-        } else {
-            navigate('/login');
-        }
-    }, [navigate, hasTokenCookie]);
+    const getBooks = async () => {
+        let result = await (await fetch('http://localhost:5010/book/all', { method: "GET" })).json();
+        setData(result.data);
+    }
+    getBooks();
 
+    React.useEffect(() => {
+        const timeout = setTimeout(() => {
+            setRows(data);
+            setPending(false);
+        }, 2000);
+        return () => clearTimeout(timeout);
+    }, []);
+
+    const columns = [
+        {
+            name: 'Codigo',
+            selector: row => row.codigo,
+        },
+        {
+            name: 'Titulo',
+            selector: row => row.titulo,
+        },
+        {
+            name: 'Autor',
+            selector: row => row.autor,
+        },
+        {
+            name: 'Editorial',
+            selector: row => row.editorial,
+        },
+        {
+            name: 'Paginas',
+            selector: row => row.cantidadPaginas,
+        },
+        {
+            name: 'Fecha Edicion',
+            selector: row => row.fechaEdicion,
+        },
+        {
+            name: 'EnStock',
+            selector: row => row.enStock,
+        },
+    ];
     return (
         <>
-            {isLoggedIn && (
-                <>
-                    <NavbarPages />
-                    <TemporaryDrawer />
-                </>
-            )}
+            <NavbarPages />
+            <TemporaryDrawer />
+            <div className="content-page">
+                <div className="container-table">
+                    <DataTable
+                        columns={columns}
+                        data={data}
+                        pagination
+                        progressPending={pending}
+                    />
+                </div>
+                {/* <FormAddBook /> */}
+            </div>
         </>
     )
 }
