@@ -23,12 +23,12 @@ db.createCollection('libro', {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["codigo", "titulo", "autor", "editorial", "cantidadPaginas", "enStock"],
+            required: ["codigo", "titulo", "autor", "editorial", "cantidadPaginas", "fechaEdicion", "descripcion", "enStock"],
             properties: {
                 codigo: { bsonType: "int", description: "'codigo' is required" },
-                titulo: { bsonType: "string", description: "'titulo' is required", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s\d]*$" },
-                autor: { bsonType: "string", description: "'autor' is required", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]*$" },
-                editorial: { bsonType: "string", description: "'editorial' is required", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]*$" },
+                titulo: { bsonType: "string", description: "'titulo' is required" },
+                autor: { bsonType: "string", description: "'autor' is required" },
+                editorial: { bsonType: "string", description: "'editorial' is required" },
                 cantidadPaginas: { bsonType: "int", description: "'cantidadPaginas' is required" },
                 fechaEdicion: { bsonType: "date", description: "'fechaEdicion' is incorrect" },
                 descripcion: { bsonType: "string", description: "'descripcion' is incorrect", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s\d]*$" },
