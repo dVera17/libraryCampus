@@ -20,6 +20,6 @@ app.use(cors(corsOptions));
 
 app.use('/auth', routerAuth)
 app.use('/home', tokenVerification, (req, res) => res.json({ action: true, message: "welcome" }))
-app.use('/book', tokenVerification, routerBooks);
+app.use('/book', routerBooks);
 
 export default app;
