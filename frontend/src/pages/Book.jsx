@@ -2,21 +2,17 @@ import React, { useEffect, useState } from 'react';
 import NavbarPages from '../components/NavbarPages'
 import TemporaryDrawer from '../components/TemporaryDrawer';
 import DataTable from 'react-data-table-component';
-import ButtonBook from '../components/ButtonBook';
+import { getBooks } from '../components/fetchBooks';
 import FormAddBook from '../components/FormAddBook';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import ModalEditBook from '../components/ModalEditBook';
 
 export default function Book() {
     const [data, setData] = useState([]);
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
 
-    const getBooks = async () => {
-        let result = await (await fetch('http://localhost:5010/book/all', { method: "GET" })).json();
-        setData(result.data);
-    }
-    getBooks();
-
-    React.useEffect(() => {
+    useEffect(() => {
         const timeout = setTimeout(() => {
             setRows(data);
             setPending(false);
@@ -24,10 +20,34 @@ export default function Book() {
         return () => clearTimeout(timeout);
     }, []);
 
+    useEffect(() => {
+        getBooks().then(data => {
+            setData(data);
+            setPending(false);
+        });
+    }, []);
+
+    useEffect(() => {
+        setRows(data);
+    }, [data]);
+
+    const deleteBook = async (codigo) => {
+        const options = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ codigo })
+        }
+        let result = await (await fetch('http://localhost:5010/book/delete', options)).json();
+        return result;
+    }
+
     const columns = [
         {
             name: 'Codigo',
             selector: row => row.codigo,
+            center: true
         },
         {
             name: 'Titulo',
@@ -44,6 +64,7 @@ export default function Book() {
         {
             name: 'Paginas',
             selector: row => row.cantidadPaginas,
+            center: true,
         },
         {
             name: 'Fecha Edicion',
@@ -52,6 +73,27 @@ export default function Book() {
         {
             name: 'EnStock',
             selector: row => row.enStock,
+            center: true,
+        },
+        {
+            name: 'Action',
+            cell: row => (
+                <div className='container-actions'>
+                    <ModalEditBook />
+                    <button
+                        className='btn-deleteBook'
+                        onClick={async () => {
+                            const codigo = row.codigo;
+                            deleteBook(codigo).then(() => {
+                                setData(data.filter(r => r.codigo !== codigo));
+                            });
+                        }}
+                    >
+                        <DeleteForeverOutlinedIcon />
+                    </button>
+                </div>
+            ),
+            center: true
         },
     ];
     return (
@@ -61,13 +103,14 @@ export default function Book() {
             <div className="content-page">
                 <div className="container-table">
                     <DataTable
+                        title='Libros Registrados'
                         columns={columns}
                         data={data}
                         pagination
                         progressPending={pending}
                     />
                 </div>
-                {/* <FormAddBook /> */}
+                <FormAddBook />
             </div>
         </>
     )

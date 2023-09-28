@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
@@ -22,7 +23,7 @@ export default function FormAddBook() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const dataForm = { codigo: parseInt(codigo), titulo, autor, editorial, cantidadPaginas, fechaEdicion, descripcion, enStock }
+        const dataForm = { codigo: parseInt(codigo), titulo, autor, editorial, cantidadPaginas: parseInt(cantidadPaginas), fechaEdicion, descripcion, enStock: parseInt(enStock) }
         const options = {
             method: 'POST',
             headers: {
@@ -76,7 +77,7 @@ export default function FormAddBook() {
 
                         <Form.Group as={Col} className="mb-3" controlId="formGridPassword">
                             <Form.Label>Descripcion</Form.Label>
-                            <Form.Control type="text" placeholder="Descripcion" required onChange={(e) => setcantidadPaginas(e.target.value)} />
+                            <Form.Control type="text" placeholder="Descripcion" required onChange={(e) => setdescripcion(e.target.value)} />
                         </Form.Group>
 
                         <Row className="mb-3">
@@ -87,7 +88,7 @@ export default function FormAddBook() {
 
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Label>Cantidad de Paginas</Form.Label>
-                                <Form.Control type="number" placeholder="Cantidad de paginas" required onChange={(e) => setdescripcion(e.target.value)} />
+                                <Form.Control type="number" placeholder="Cantidad de paginas" required onChange={(e) => setcantidadPaginas(e.target.value)} />
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
