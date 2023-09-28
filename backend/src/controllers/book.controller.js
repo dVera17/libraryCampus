@@ -12,7 +12,10 @@ const addNewBook = asyncHandler(async (req, res) => {
         const { codigo, titulo, autor, editorial, cantidadPaginas, descripcion, enStock } = req.body
 
         let existingBook = await libro.findOne({ $or: [{ codigo: req.body.codigo }, { titulo: req.body.titulo }] });
-        if (existingBook) res.json({ action: false, message: 'the book is already created' })
+        if (existingBook) {
+            res.json({ action: false, message: 'the book is already created' })
+            return;
+        }
 
         let addBook = await libro.insertOne({
             codigo,

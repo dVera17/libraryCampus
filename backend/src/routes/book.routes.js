@@ -5,5 +5,6 @@ const router = Router();
 
 router.post('/create', bookDTO, bookController.addNewBook)
 router.get('/all', bookController.getAllBooks)
+router.delete('/delete', bookController.deleteBook)
 
 export default router;
