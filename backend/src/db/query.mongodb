@@ -19,6 +19,7 @@ db.createCollection('usuario', {
 });
 db.usuario.createIndex({ user: 1, email: 1 }, { unique: true });
 
+use('db_library_campus');
 db.createCollection('libro', {
     validator: {
         $jsonSchema: {
@@ -31,7 +32,7 @@ db.createCollection('libro', {
                 editorial: { bsonType: "string", description: "'editorial' is required" },
                 cantidadPaginas: { bsonType: "int", description: "'cantidadPaginas' is required" },
                 fechaEdicion: { bsonType: "date", description: "'fechaEdicion' is incorrect" },
-                descripcion: { bsonType: "string", description: "'descripcion' is incorrect", pattern: "^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s\d]*$" },
+                descripcion: { bsonType: "string", description: "'descripcion' is incorrect" },
                 enStock: { bsonType: "int", description: "'enStock' is required" }
             }
         }
