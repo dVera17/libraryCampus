@@ -29,7 +29,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     try {
         // res.cookie('token', , { httpOnly: true, secure: true, sameSite: 'strict', path: '/', domain: '*.localhost' });
-        res.json({ action: true, message: "User successfully logged in", token: req.data.message })
+        res.json({ action: true, message: "User successfully logged in", token: req.data.message, user: req.user })
     } catch (error) {
         res.send(error)
     }

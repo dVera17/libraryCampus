@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { useLocation } from 'react-router-dom';
 
 export default function FormAddBook() {
     const [show, setShow] = useState(false);
@@ -37,13 +38,24 @@ export default function FormAddBook() {
         } else toast.error(result.message)
     }
 
+    const renderButton = () => {
+        const location = useLocation();
+        if (location.pathname === '/admin/book') {
+            return (
+                <div className="container-buttons">
+                    <Button variant="outline-info" className="btn-agregar" onClick={handleShow}>
+                        Agregar
+                    </Button>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    };
+
     return (
         <>
-            <div className="container-buttons">
-                <Button variant="outline-info" className="btn-agregar" onClick={handleShow}>
-                    Agregar
-                </Button>
-            </div>
+            {renderButton()}
 
             <Modal show={show} onHide={handleClose} size='xl'>
                 <Modal.Header closeButton>

@@ -29,9 +29,16 @@ export default function Login() {
         if (result.action) {
             toast.success(result.message)
             document.cookie = `token=${result.token}; path=/;`;
-            setTimeout(() => {
-                navigate('/home')
-            }, 1000)
+            if (result.user.rol === 'gerente') {
+                setTimeout(() => {
+                    navigate('/admin/home')
+                }, 1000)
+            }
+            if (result.user.rol === 'cliente') {
+                setTimeout(() => {
+                    navigate('/home')
+                }, 1000)
+            }
         } else toast.error(result.message)
     }
 

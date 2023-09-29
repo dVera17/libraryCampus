@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import NavbarPages from '../components/NavbarPages'
 import { useNavigate } from 'react-router-dom';
-import TemporaryDrawer from '../components/TemporaryDrawer';
+import TemporaryDrawer from '../components/TemporaryDrawerAdmin';
 
-export default function Home() {
+export default function HomeAdmin() {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const hasTokenCookie = document.cookie.includes('token=');

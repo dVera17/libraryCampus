@@ -30,7 +30,7 @@ export default function NavbarPages() {
         <>
             <Navbar collapseOnSelect expand="lg" className="main-navbar">
                 <Container>
-                    <Navbar.Brand href="/home" className='titleNavbar'>Library Campus</Navbar.Brand>
+                    <Navbar.Brand className='titleNavbar'>Library Campus</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">

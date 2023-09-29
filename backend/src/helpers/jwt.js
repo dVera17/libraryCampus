@@ -22,6 +22,7 @@ export const createToken = asyncHandler(async (req, res, next) => {
             .setExpirationTime('3h')
             .sign(new TextEncoder().encode(process.env.JWT_PRIVATE_KEY));
         req.data = { status: 200, message: jwtConstructor };
+        req.user = result
         next();
     } catch (error) {
         res.send(error)

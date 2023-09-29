@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import NavbarPages from '../components/NavbarPages'
-import TemporaryDrawer from '../components/TemporaryDrawer';
 import DataTable from 'react-data-table-component';
 import { getBooks } from '../components/fetchBooks';
 import FormAddBook from '../components/FormAddBook';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import ModalEditBook from '../components/ModalEditBook';
+import AddIcon from '@mui/icons-material/Add';
+import TemporaryDrawerUser from '../components/TemporaryDrawerUser';
 
-export default function Book() {
+
+export default function LoanUser() {
     const [data, setData] = useState([]);
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
@@ -31,16 +31,24 @@ export default function Book() {
         setRows(data);
     }, [data]);
 
-    const deleteBook = async (codigo) => {
+    const handleReserve = async () => {
+        e.preventDefault();
+
+        const dataForm = { user, email, telefono: parseInt(telefono), primerNombre, primerApellido, password, rol: 'cliente', fechaNac }
         const options = {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ codigo })
+            body: JSON.stringify(dataForm)
         }
-        let result = await (await fetch('http://localhost:5010/book/delete', options)).json();
-        return result;
+        let result = await (await fetch('http://localhost:5010/loan/new', options)).json()
+        if (result.action) {
+            toast.success(result.message)
+            setTimeout(() => {
+                navigate('/login')
+            }, 2000)
+        } else toast.error(result.message)
     }
 
     const columns = [
@@ -71,25 +79,18 @@ export default function Book() {
             selector: row => row.fechaEdicion,
         },
         {
-            name: 'EnStock',
-            selector: row => row.enStock,
-            center: true,
-        },
-        {
             name: 'Action',
             cell: row => (
                 <div className='container-actions'>
-                    <ModalEditBook />
                     <button
                         className='btn-deleteBook'
                         onClick={async () => {
                             const codigo = row.codigo;
-                            deleteBook(codigo).then(() => {
-                                setData(data.filter(r => r.codigo !== codigo));
-                            });
+                            console.log(codigo);
                         }}
                     >
-                        <DeleteForeverOutlinedIcon />
+                        <AddIcon fontSize='small' />
+                        Reservar
                     </button>
                 </div>
             ),
@@ -99,7 +100,7 @@ export default function Book() {
     return (
         <>
             <NavbarPages />
-            <TemporaryDrawer />
+            <TemporaryDrawerUser />
             <div className="content-page">
                 <div className="container-table">
                     <DataTable

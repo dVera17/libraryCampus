@@ -4,18 +4,18 @@ import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawerAdmin() {
     return (
         <>
             <aside className='main-left-navigation'>
                 <div className="listItemSideBar">
-                    <Link className='itemSideBar-link' to='/home'>
+                    <Link className='itemSideBar-link' to='/admin/home'>
                         <button className='itemSideBar'>
                             <HomeSharpIcon fontSize='large' sx={{ color: 'white' }} />
                             <span>Inicio</span>
                         </button>
                     </Link>
-                    <Link className='itemSideBar-link' to='/book'>
+                    <Link className='itemSideBar-link' to='/admin/book'>
                         <button className='itemSideBar'>
                             <MenuBookSharpIcon fontSize='large' sx={{ color: 'white' }}></MenuBookSharpIcon>
                             <span>Libros</span>
