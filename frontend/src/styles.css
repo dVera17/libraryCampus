@@ -8,8 +8,18 @@ body {
     background-color: rgba(233, 233, 233, 0.925);
 }
 
+video {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+    object-fit: cover;
+    opacity: .7;
+}
+
 .containerForm {
-    background-color: #333;
     height: 100vh;
     width: 100vw;
     display: flex;

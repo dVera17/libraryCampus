@@ -3,8 +3,8 @@ import NavbarPages from '../components/NavbarPages'
 import DataTable from 'react-data-table-component';
 import { getBooks } from '../components/fetchBooks';
 import FormAddBook from '../components/FormAddBook';
-import AddIcon from '@mui/icons-material/Add';
 import TemporaryDrawerUser from '../components/TemporaryDrawerUser';
+import FormReserveBook from '../components/FormReserveBook';
 
 
 export default function LoanUser() {
@@ -82,16 +82,7 @@ export default function LoanUser() {
             name: 'Action',
             cell: row => (
                 <div className='container-actions'>
-                    <button
-                        className='btn-deleteBook'
-                        onClick={async () => {
-                            const codigo = row.codigo;
-                            console.log(codigo);
-                        }}
-                    >
-                        <AddIcon fontSize='small' />
-                        Reservar
-                    </button>
+                    <FormReserveBook />
                 </div>
             ),
             center: true
