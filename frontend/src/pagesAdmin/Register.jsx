@@ -29,11 +29,11 @@ export default function Register() {
             },
             body: JSON.stringify(dataForm)
         }
-        let result = await (await fetch('http://localhost:5010/auth/register', options)).json()
+        let result = await (await fetch('http://192.168.129.72:5013/auth/register', options)).json()
         if (result.action) {
             toast.success(result.message)
             setTimeout(() => {
-                navigate('/login')
+                navigate('/')
             }, 2000)
         } else toast.error(result.message)
     }
@@ -79,7 +79,7 @@ export default function Register() {
                     </Row>
                     <Row className='btn-info-register'>
                         <Col sm={4}><Button variant="primary" type='submit' onClick={handleSubmit}>Registrarse</Button></Col>
-                        <Col sm={8}>Ya tienes una cuenta? <Link to={'/login'}>Inicia sesion aquí</Link></Col>
+                        <Col sm={8}>Ya tienes una cuenta? <Link to={'/'}>Inicia sesion aquí</Link></Col>
                     </Row>
                 </Form>
                 <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 2000 }} />

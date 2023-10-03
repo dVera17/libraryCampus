@@ -39,7 +39,7 @@ export default function LoanAdmin() {
             },
             body: JSON.stringify({ codigo })
         }
-        let result = await (await fetch('http://localhost:5010/book/delete', options)).json();
+        let result = await (await fetch('http://192.168.129.72:5013/book/delete', options)).json();
         return result;
     }
 

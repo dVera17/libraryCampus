@@ -14,6 +14,7 @@ const corsOptions = {
 }
 
 const app = express();
+app.set('host_name', process.env.HOSTNAME_SERVER);
 app.set('port', process.env.PORT_SERVER);
 app.use(express.json());
 app.use(cookieParser());

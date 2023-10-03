@@ -12,7 +12,7 @@ export default function HomeUser() {
     useEffect(() => {
         if (hasTokenCookie) {
             const token = document.cookie.match(/token=([^;]+)/)[1];
-            fetch('http://localhost:5010/home', {
+            fetch('http://192.168.129.72:5013/home', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -22,14 +22,14 @@ export default function HomeUser() {
                     if (data.action) {
                         setIsLoggedIn(true);
                     } else {
-                        navigate('/login');
+                        navigate('/');
                     }
                 })
                 .catch((error) => {
                     console.error('Error al verificar la sesión', error);
                 });
         } else {
-            navigate('/login');
+            navigate('/');
         }
     }, [navigate, hasTokenCookie]);
 

@@ -162,3 +162,39 @@ video {
     color: #fff;
     margin-left: .2rem;
 }
+
+.page_404 {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: 'Arvo', serif;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page_404 img {
+    width: 100%;
+}
+
+.four_zero_four_bg {
+    width: auto;
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 500px;
+    background-position: center;
+}
+
+
+.four_zero_four_bg h1 {
+    font-size: 80px;
+}
+
+.four_zero_four_bg h3 {
+    font-size: 80px;
+}
+
+.contant_box_404 {
+    margin-top: -50px;
+}

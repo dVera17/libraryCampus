@@ -26,7 +26,7 @@ export default function Login() {
             body: JSON.stringify(dataForm)
         }
 
-        let result = await (await fetch('http://localhost:5010/auth/login', options)).json();
+        let result = await (await fetch('http://192.168.129.72:5013/auth/login', options)).json();
         if (result.action) {
             toast.success(result.message)
             document.cookie = `token=${result.token}; path=/;`;

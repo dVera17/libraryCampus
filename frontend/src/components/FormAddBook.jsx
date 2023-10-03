@@ -32,7 +32,7 @@ export default function FormAddBook() {
             },
             body: JSON.stringify(dataForm)
         }
-        let result = await (await fetch('http://localhost:5010/book/create', options)).json()
+        let result = await (await fetch('http://192.168.129.72:5013/book/create', options)).json()
         if (result.action) {
             toast.success(result.message)
         } else toast.error(result.message)

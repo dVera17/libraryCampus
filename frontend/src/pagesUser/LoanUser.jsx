@@ -42,11 +42,11 @@ export default function LoanUser() {
             },
             body: JSON.stringify(dataForm)
         }
-        let result = await (await fetch('http://localhost:5010/loan/new', options)).json()
+        let result = await (await fetch('http://192.168.129.72:5013/loan/new', options)).json()
         if (result.action) {
             toast.success(result.message)
             setTimeout(() => {
-                navigate('/login')
+                navigate('/')
             }, 2000)
         } else toast.error(result.message)
     }

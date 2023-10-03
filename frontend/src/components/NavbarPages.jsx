@@ -16,12 +16,12 @@ export default function NavbarPages() {
                 "Content-Type": "application/json"
             }
         }
-        let result = await (await fetch('http://localhost:5010/auth/logout', options)).json();
+        let result = await (await fetch('http://192.168.129.72:5013/auth/logout', options)).json();
         if (result.action) {
             document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
             toast.success(result.message)
             setTimeout(() => {
-                navigate('/login')
+                navigate('/')
             }, 1000)
         } else toast.error(result.message)
     }
