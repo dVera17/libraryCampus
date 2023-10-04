@@ -9,9 +9,6 @@ const newReserve = asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(errors);
 
-        const getData = await reserva.find({}).toArray();
-        console.log('dataaa', getData);
-
         const { dniUser, codigoLibro, estado } = req.body
         let addReserve = await reserva.insertOne({
             dniUser,
@@ -21,13 +18,32 @@ const newReserve = asyncHandler(async (req, res) => {
             estado
         })
 
-        console.log(addReserve);
         addReserve.insertedId !== null ? res.json({ action: true, message: "successfully registered reserve" }) : res.json({ action: false, message: "Sorry, Something is wrong" });
     } catch (error) {
         console.log(error);
     }
 })
 
+const getReserves = asyncHandler(async (req, res) => {
+    try {
+        let allReserves = await reserva.find({}).toArray();
+        res.send(allReserves)
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+const aceptarReserva = asyncHandler(async (req, res) => {
+    try {
+        let result = await reserva.updateOne({ dniUser: req.body.dniUser }, { $set: { estado: "aceptado" } })
+        res.json({ action: true, message: "Success" });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 export const reserveController = {
-    newReserve
+    newReserve,
+    getReserves,
+    aceptarReserva
 }

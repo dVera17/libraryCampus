@@ -10,19 +10,16 @@ const newLoan = asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json(errors);
 
-        const { codigo, tituloLibro, emailCliente, cantidad, estado } = req.body
+        // const {dniUser}
         let loan = await prestamo.insertOne({
-            codigo,
-            tituloLibro,
-            emailCliente,
-            cantidad,
-            fechaPrestamo: new Date(req.body.fechaPrestamo),
-            fechaDevolucion: new Date(req.body.fechaDevolucion),
-            estado
+            dniUser,
+            codigoLibro,
+            fechaPrestamo,
+            fechaDevolucion,
+            estado: new Date(req.body.fechaPrestamo),
         });
 
-        let updateStockBooks = await libro.updateOne({ tituloLibro }, { $inc: { 'enStock': -1 } });
-        (loan.insertedId !== null && updateStockBooks !== null) ? res.json({ action: true, message: "successfully registered book" }) : res.json({ action: false, message: "Sorry, Something is wrong" });
+        loan.insertedId !== null ? res.json({ action: true, message: "successfully" }) : res.json({ action: false, message: "Sorry, Something is wrong" })
     } catch (error) {
         res.send(error)
     }
