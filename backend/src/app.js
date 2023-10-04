@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import routerAuth from './routes/auth.routes.js';
 import routerBooks from './routes/book.routes.js';
 import routerLoan from './routes/loan.routes.js';
+import routerReserve from './routes/reserve.routes.js';
 import { tokenVerification } from './helpers/jwt.js';
 config();
 
@@ -24,5 +25,6 @@ app.use('/auth', routerAuth)
 app.use('/home', tokenVerification, (req, res) => res.json({ action: true, message: "welcome" }))
 app.use('/book', routerBooks)
 app.use('/loan', routerLoan)
+app.use('/reserve', routerReserve)
 
 export default app;
