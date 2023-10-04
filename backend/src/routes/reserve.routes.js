@@ -6,5 +6,6 @@ const router = Router();
 router.post('/new', reserveDTO, reserveController.newReserve)
 router.get('/all', reserveController.getReserves)
 router.put('/aceptar', reserveController.aceptarReserva)
+router.get('/r_accepted', reserveController.getReservesAccepted)
 
 export default router;

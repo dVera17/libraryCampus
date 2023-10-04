@@ -26,7 +26,7 @@ const newReserve = asyncHandler(async (req, res) => {
 
 const getReserves = asyncHandler(async (req, res) => {
     try {
-        let allReserves = await reserva.find({}).toArray();
+        let allReserves = await reserva.find({ estado: "pendiente" }).toArray();
         res.send(allReserves)
     } catch (error) {
         console.log(error);
@@ -42,8 +42,18 @@ const aceptarReserva = asyncHandler(async (req, res) => {
     }
 })
 
+const getReservesAccepted = asyncHandler(async (req, res) => {
+    try {
+        let result = await reserva.find({ estado: "aceptado" }).toArray();
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 export const reserveController = {
     newReserve,
     getReserves,
-    aceptarReserva
+    aceptarReserva,
+    getReservesAccepted
 }
