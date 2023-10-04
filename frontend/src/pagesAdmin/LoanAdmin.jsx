@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import NavbarPages from '../components/NavbarPages'
 import TemporaryDrawer from '../components/TemporaryDrawerAdmin';
 import DataTable from 'react-data-table-component';
-import { getBooks } from '../components/fetchBooks';
 import FormAddBook from '../components/FormAddBook';
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import ModalEditBook from '../components/ModalEditBook';
+import toast, { Toaster } from 'react-hot-toast';
+import { getAllReserves } from '../components/fetchReserves';
 
 export default function LoanAdmin() {
     const [data, setData] = useState([]);
@@ -21,7 +20,7 @@ export default function LoanAdmin() {
     }, []);
 
     useEffect(() => {
-        getBooks().then(data => {
+        getAllReserves().then(data => {
             setData(data);
             setPending(false);
         });
@@ -31,65 +30,56 @@ export default function LoanAdmin() {
         setRows(data);
     }, [data]);
 
-    const deleteBook = async (codigo) => {
+    const aceptarReserva = async (dniUser) => {
         const options = {
-            method: 'DELETE',
+            method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ codigo })
+            body: JSON.stringify({ dniUser: parseInt(dniUser) })
         }
-        let result = await (await fetch('http://192.168.129.72:5013/book/delete', options)).json();
-        return result;
+
+        let result = await (await fetch('http://192.168.129.72:5013/reserve/aceptar', options)).json();
+        if (result.action) {
+            toast.success(result.message)
+        } else toast.error(result.message)
     }
 
     const columns = [
         {
-            name: 'Codigo',
-            selector: row => row.codigo,
+            name: 'DNI usuario',
+            selector: row => row.dniUser,
             center: true
         },
         {
-            name: 'Titulo',
-            selector: row => row.titulo,
+            name: 'Codigo Libro',
+            selector: row => row.codigoLibro,
         },
         {
-            name: 'Autor',
-            selector: row => row.autor,
+            name: 'Fecha Prestamo',
+            selector: row => row.fechaPrestamo,
         },
         {
-            name: 'Editorial',
-            selector: row => row.editorial,
+            name: 'Fecha Devolucion',
+            selector: row => row.fechaDevolucion,
         },
         {
-            name: 'Paginas',
-            selector: row => row.cantidadPaginas,
-            center: true,
-        },
-        {
-            name: 'Fecha Edicion',
-            selector: row => row.fechaEdicion,
-        },
-        {
-            name: 'EnStock',
-            selector: row => row.enStock,
+            name: 'Estado',
+            selector: row => row.estado,
             center: true,
         },
         {
             name: 'Action',
             cell: row => (
                 <div className='container-actions'>
-                    <ModalEditBook />
                     <button
                         className='btn-deleteBook'
                         onClick={async () => {
-                            const codigo = row.codigo;
-                            deleteBook(codigo).then(() => {
-                                setData(data.filter(r => r.codigo !== codigo));
-                            });
+                            const dniUser = row.dniUser;
+                            aceptarReserva(dniUser);
                         }}
                     >
-                        <DeleteForeverOutlinedIcon />
+                        Aceptar
                     </button>
                 </div>
             ),
@@ -112,6 +102,7 @@ export default function LoanAdmin() {
                 </div>
                 <FormAddBook />
             </div>
+            <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 2000 }} />
         </>
     )
 }
