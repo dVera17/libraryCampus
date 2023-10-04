@@ -8,6 +8,7 @@ import LoanAdmin from './pagesAdmin/LoanAdmin'
 import Error404 from './pagesAdmin/Error404'
 import HomeUser from './pagesUser/HomeUser'
 import LoanUser from './pagesUser/LoanUser'
+import LoansAccepted from './pagesAdmin/LoansAccepted'
 
 export default function App() {
     return (
@@ -21,6 +22,7 @@ export default function App() {
                 <Route path='*' element={<Error404 />} />
                 <Route path='/home' element={<HomeUser />} />
                 <Route path='/loan' element={<LoanUser />} />
+                <Route path='/admin/loanAccepted' element={<LoansAccepted />} />
             </Routes>
         </>
     )
