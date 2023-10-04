@@ -31,26 +31,6 @@ export default function LoanUser() {
         setRows(data);
     }, [data]);
 
-    const handleReserve = async () => {
-        e.preventDefault();
-
-        const dataForm = { user, email, telefono: parseInt(telefono), primerNombre, primerApellido, password, rol: 'cliente', fechaNac }
-        const options = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dataForm)
-        }
-        let result = await (await fetch('http://192.168.129.72:5013/loan/new', options)).json()
-        if (result.action) {
-            toast.success(result.message)
-            setTimeout(() => {
-                navigate('/')
-            }, 2000)
-        } else toast.error(result.message)
-    }
-
     const columns = [
         {
             name: 'Codigo',
@@ -82,7 +62,7 @@ export default function LoanUser() {
             name: 'Action',
             cell: row => (
                 <div className='container-actions'>
-                    <FormReserveBook />
+                    <FormReserveBook codigoLibro={row.codigo} />
                 </div>
             ),
             center: true
