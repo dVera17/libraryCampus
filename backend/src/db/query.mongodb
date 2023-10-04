@@ -40,17 +40,14 @@ db.createCollection('libro', {
 });
 db.libro.createIndex({ codigo: 1, titulo: 1 }, { unique: true });
 
-use('db_library_campus');
 db.createCollection('prestamo', {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["codigo", "tituloLibro", "emailCliente", "cantidad", "fechaPrestamo", "fechaDevolucion"],
+            required: ["dniUser", "codigoLibro", "fechaPrestamo", "fechaDevolucion", "estado"],
             properties: {
-                codigo: { bsonType: "int", description: "'codigo' is required" },
-                tituloLibro: { bsonType: "string", description: "'tituloLibro' is required" },
-                emailCliente: { bsonType: "string", description: "'emailCliente' is required", pattern: "^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$" },
-                cantidad: { bsonType: "int", description: "'cantidad' is required" },
+                dniUser: { bsonType: "int", description: "'codigo' is required" },
+                codigoLibro: { bsonType: "int", description: "'codigoLibro' is required" },
                 fechaPrestamo: { bsonType: "date", description: "'fechaPrestamo' is incorrect" },
                 fechaDevolucion: { bsonType: "date", description: "'fechaDevolucion' is incorrect" },
                 estado: { enum: ['prestado', 'devuelto'], description: "'estado' is incorrect" }
@@ -58,4 +55,19 @@ db.createCollection('prestamo', {
         }
     }
 });
-db.prestamo.createIndex({ codigo: 1 }, { unique: true });
+
+db.createCollection('reserva', {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["dniUser", "codigoLibro", "fechaPrestamo", "fechaDevolucion", "estado"],
+            properties: {
+                dniUser: { bsonType: "int", description: "'dniUser' is required" },
+                codigoLibro: { bsonType: "int", description: "'codigoLibro' is required" },
+                fechaPrestamo: { bsonType: "date", description: "'fechaPrestamo' is incorrect" },
+                fechaDevolucion: { bsonType: "date", description: "'fechaDevolucion' is incorrect" },
+                estado: { enum: ['pendiente', 'aceptado'], description: "'estado' is incorrect" }
+            }
+        }
+    }
+})
